@@ -1,12 +1,14 @@
-from fastapi import FastAPI
-from typing import Optional
+from flask import Flask, jsonify, request
+from flasgger import Swagger
 
-app = FastAPI()
+app = Flask(__name__)
+swagger = Swagger(app)
 
-@app.get("/")
-def read_root():
-    return {"message": "API está funcionando"}
+@app.route('/')
+def home():
+    return jsonify({"message": "API está funcionando"})
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Optional[str] = None):
-    return {"item_id": item_id, "q": q}
+@app.route('/items/<int:item_id>')
+def get_item(item_id):
+    q = request.args.get('q')
+    return jsonify({"item_id": item_id, "q": q})

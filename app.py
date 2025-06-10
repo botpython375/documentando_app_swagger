@@ -4,7 +4,8 @@ from flasgger import Swagger
 app = Flask(__name__)
 swagger = Swagger(app)
 
-@app.route('/items/<int:item_id>')
+
+@app.route("/items/<int:item_id>")
 def get_item(item_id):
     """
     Obter item pelo ID
@@ -31,5 +32,5 @@ def get_item(item_id):
             q:
               type: string
     """
-    q = request.args.get('q')
+    q = request.args.get("q")
     return jsonify({"item_id": item_id, "q": q})

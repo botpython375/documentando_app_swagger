@@ -1,14 +1,12 @@
 from flask import Flask, jsonify, request
 from flasgger import Swagger
 from flask_jwt_extended import (
-    JWTManager,
-    create_access_token,
-    jwt_required,
-    get_jwt_identity,
+    JWTManager, create_access_token,
+    jwt_required, get_jwt_identity
 )
 
 app = Flask(__name__)
-app.config["JWT_SECRET_KEY"] = "chave-super-secreta"  # use uma chave forte em produção
+app.config["JWT_SECRET_KEY"] = "chave-super-secreta"
 
 swagger = Swagger(app)
 jwt = JWTManager(app)

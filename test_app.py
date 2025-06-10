@@ -10,9 +10,10 @@ def test_home():
 
 def test_login_sucesso():
     client = app.test_client()
-    response = client.post(
-        "/login", json={"email": "user@example.com", "senha": "1234"}
-    )
+    response = client.post("/login", json={
+        "email": "user@example.com",
+        "senha": "1234"
+    })
     assert response.status_code == 200
     assert "access_token" in response.get_json()
 
@@ -26,11 +27,14 @@ def test_protegido_sem_token():
 def test_protegido_com_token():
     client = app.test_client()
 
-    # Primeiro faz login
-    login = client.post("/login", json={"email": "user@example.com", "senha": "1234"})
+    login = client.post("/login", json={
+        "email": "user@example.com",
+        "senha": "1234"
+    })
     token = login.get_json()["access_token"]
 
-    # Acessa rota protegida com o token
-    response = client.get("/protegido", headers={"Authorization": f"Bearer {token}"})
+    headers = {"Authorization": f"Bearer {token}"}
+    response = client.get("/protegido", headers=headers)
+
     assert response.status_code == 200
     assert "Olá, user@example.com!" in response.get_json()["msg"]

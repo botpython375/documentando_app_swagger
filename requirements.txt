@@ -1,3 +1,5 @@
 flask
 flasgger
 gunicorn
+pytest
+flake8

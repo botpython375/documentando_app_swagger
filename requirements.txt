@@ -3,3 +3,4 @@ flasgger
 gunicorn
 pytest
 flake8
+flask-jwt-extended
